@@ -283,7 +283,6 @@ st.markdown("""
 st.markdown("<br><br>", unsafe_allow_html=True)
 # --- 7. TOOL GRID (UPDATED FILENAMES) ---
 st.subheader("🚀 Try My AI Tools")
-
 # UPDATED: These labels now exactly match your file names with spaces
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
@@ -293,9 +292,7 @@ tools = [
     {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie Link Finder.py"},
     {"label": "Image Compressor", "icon": "📉", "file": "pages/Image Compressor.py"},
 ]
-
 cols = st.columns(3)
-
 for i, tool in enumerate(tools):
     with cols[i % 3]:
         btn_label = f"{tool['icon']}\n{tool['label']}"
