@@ -4,7 +4,6 @@ import os
 
 # This block is needed so the pages folder can find utils.py
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import utils 
 
 # Apply the style
 utils.add_bg_and_footer()
