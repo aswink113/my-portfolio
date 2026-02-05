@@ -283,21 +283,26 @@ st.markdown("""
 st.markdown("<br><br>", unsafe_allow_html=True)
 # --- 7. TOOL GRID ---
 st.subheader("🚀 Try My AI Tools")
+
 tools = [
-    {"label": "Background Remover", "icon": "📷"},
-    {"label": "AI Photo Studio", "icon": "✨"},
-    {"label": "PDF Splitter", "icon": "📄"},
-    {"label": "Object Eraser", "icon": "🧼"},
-    {"label": "Movie Link Finder", "icon": "🎬"},
-    {"label": "Image Compressor", "icon": "📉"},
+    {"label": "Background Remover", "icon": "📷", "file": "pages/Background_Remover.py"},
+    {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
+    {"label": "PDF Splitter", "icon": "📄", "file": "pages/PDF_Splitter.py"},
+    {"label": "Object Eraser", "icon": "🧼", "file": "pages/Object_Eraser.py"},
+    {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie_Link_Finder.py"},
+    {"label": "Image Compressor", "icon": "📉", "file": "pages/Image_Compressor.py"},
 ]
+
 cols = st.columns(3)
+
 for i, tool in enumerate(tools):
     with cols[i % 3]:
         btn_label = f"{tool['icon']}\n{tool['label']}"
         if st.button(btn_label, use_container_width=True, key=tool['label']):
-            if "Background" in tool['label']:
-                st.switch_page("pages/Background_Remover.py")
-            else:
-                st.toast(f"🚧 {tool['label'].splitlines()[0]} is coming soon!", icon="🔧")
+            # This 'try' block stops the app from crashing if you haven't made the file yet
+            try:
+                st.switch_page(tool['file'])
+            except:
+                st.error(f"⚠️ File not found: {tool['file']}")
+                st.info("Please create this file inside the 'pages' folder.")
         st.write("")
