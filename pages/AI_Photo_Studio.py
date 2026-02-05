@@ -9,7 +9,6 @@ import requests
 from streamlit_drawable_canvas import st_canvas
 # --- PATH SETUP & UTILS ---
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import utils 
 # Apply Glass Theme
 try:
     utils.add_bg_and_footer()
