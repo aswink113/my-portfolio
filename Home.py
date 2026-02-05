@@ -1,306 +1,134 @@
 import streamlit as st
-import base64
-import os
-import streamlit.components.v1 as components
 from PIL import Image
-# --- 1. PAGE CONFIGURATION ---
+import os
+# --- 1. PAGE CONFIGURATION (Professional Settings) ---
 st.set_page_config(
-    page_title="ASWIN K | AI Portfolio",
+    page_title="Aswin | AI Engineer",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed" # Hides the sidebar by default
 )
-# --- 2. IOS GLASSMORPHISM CSS (WITH MOBILE FIXES) ---
+# --- 2. PROFESSIONAL CSS (Clean White & Blue Theme) ---
 st.markdown("""
     <style>
-    /* 1. BACKGROUND & GLOBAL FONTS */
+    /* 1. HIDE DEFAULT STREAMLIT ELEMENTS */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    [data-testid="stSidebar"] {display: none;} /* Strictly hide sidebar */
+    /* 2. MAIN BACKGROUND & FONTS */
     .stApp {
-        background: radial-gradient(circle at 10% 20%, rgb(10, 20, 40) 0%, rgb(5, 10, 20) 90%);
-        background-attachment: fixed;
-        color: white;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #f8f9fa; /* Light Grey Background */
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
-    /* 2. REMOVE HEADER AND FOOTER (CLEAN MODE) */
-    [data-testid="stHeader"] {display: none;} /* Hides top bar */
-    [data-testid="stToolbar"] {display: none;} /* Hides options menu */
-    footer {visibility: hidden;} /* Hides footer */
-    div[class^="viewerBadge"] {display: none;} /* Hides 'Hosted with Streamlit' */
-    /* 3. HEADER TEXT STYLING */
-    .header-text {
-        font-size: 28px;
-        font-weight: 800;
-        background: linear-gradient(90deg, #00C9FF, #92FE9D);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 1px;
+    /* 3. HEADERS */
+    h1, h2, h3 {
+        color: #2c3e50; /* Dark Blue-Grey */
+        font-weight: 700;
+    }
+    /* 4. CUSTOM TOOL CARDS (The Square Boxes) */
+    .tool-card {
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Subtle Shadow */
+        border: 1px solid #eef0f2;
         text-align: center;
-        width: 100%;
-        margin-top: 20px; /* Added spacing for mobile top */
+        transition: transform 0.2s;
+        height: 100%;
     }
-    /* 4. HERO SECTION - DESKTOP DEFAULT */
-    .hero-container {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 8rem 2rem; 
-        position: relative;
-        overflow: hidden;
-        margin-top: 10px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-color: #3498db; /* Blue border on hover */
     }
-    .hero-title {
-        font-size: 4rem; 
-        margin: 5px 0 15px 0; 
-        font-weight: 800; 
-        background: linear-gradient(to right, #ffffff, #a0a0a0); 
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-    }
-    .hero-buttons {
-        display: flex; 
-        gap: 20px;
-    }
-    /* 5. MOBILE RESPONSIVE FIXES (MAGIC HAPPENS HERE) */
-    @media only screen and (max-width: 600px) {
-        /* Reduce padding so it fits on screen */
-        .hero-container {
-            padding: 3rem 1.5rem;
-            border-radius: 15px;
-        }
-        /* Make title smaller to prevent wrapping/crowding */
-        .hero-title {
-            font-size: 2.5rem !important;
-            line-height: 1.2;
-        }
-        /* Adjust paragraph text size */
-        .hero-desc {
-            font-size: 1rem !important;
-        }
-        /* Stack buttons vertically on small screens */
-        .hero-buttons {
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-        /* Make buttons full width on mobile */
-        .hero-buttons a {
-            width: 100%;
-            text-align: center;
-            display: block;
-        }
-        /* Adjust header text size */
-        .header-text {
-            font-size: 22px;
-        }
-    }
-    /* 6. GLASS TOOL BOXES */
-    div.stButton > button {
-        background: rgba(255, 255, 255, 0.04) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #E0E0E0 !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 20px !important;
-        padding: 0px; 
-        height: 160px; 
-        width: 100%;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    div.stButton > button:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border-color: #00ADB5 !important;
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0, 173, 181, 0.25);
-        color: #00ADB5 !important;
-    }
-    div.stButton > button p {
-        font-size: 1.1rem;
+    /* 5. BUTTON STYLING */
+    .stButton > button {
+        background-color: #3498db; /* Professional Blue */
+        color: white;
+        border-radius: 8px;
+        border: none;
+        padding: 10px 24px;
         font-weight: 600;
-        margin: 0;
-        letter-spacing: 0.5px;
+        width: 100%;
     }
-    /* 7. ABOUT ME SECTION */
-    .about-box {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 40px;
-        border-left: 4px solid #00ADB5;
+    .stButton > button:hover {
+        background-color: #2980b9; /* Darker Blue */
     }
     </style>
 """, unsafe_allow_html=True)
-# --- 3. HEADER SECTION (CENTERED NAME) ---
-c1, c2, c3 = st.columns([1, 2, 1]) 
-with c2: 
-    st.markdown('<div class="header-text">ASWIN K</div>', unsafe_allow_html=True)
-with c3: 
-    # Contact button acts as a floater on desktop, centered on mobile via columns
-    st.link_button("📧 Contact Me", "mailto:contact@aswin.ai", use_container_width=True)
-st.write("") 
-# --- 4. HERO SECTION (With profile.jpg as BG) ---
-def get_img_as_base64(file):
+# --- 3. HEADER / HERO SECTION ---
+col1, col2 = st.columns([2, 1], gap="large")
+with col1:
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.title("Hello, I am Aswin")
+    st.markdown("### 🧠 AI Engineer & Data Scientist")
+    st.markdown("""
+    I build **production-grade AI systems** that solve real-world problems. 
+    Specializing in Generative AI, Computer Vision, and Predictive Analytics.
+    My focus is on creating clean, scalable, and efficient solutions for modern businesses.
+    """)
+    st.markdown("<br>", unsafe_allow_html=True)
+    # Professional CTA Buttons
+    b1, b2 = st.columns([1, 2])
+    with b1:
+        st.button("📄 Download Resume")
+    with b2:
+        st.button("✉️ Contact Me")
+with col2:
+    # Profile Image Logic
     try:
-        with open(file, "rb") as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
+        # Looking for 'profile.jpg'
+        image = Image.open("profile.jpg")
+        st.image(image, use_container_width=True)
     except:
-        return None
-img_b64 = None
-if os.path.exists("profile.jpg"):
-    img_b64 = get_img_as_base64("profile.jpg")
-bg_style = ""
-if img_b64:
-    # Adjusted gradient to be stronger on mobile (darker) to ensure text readability
-    bg_style = f"""
-        background: linear-gradient(to right, rgba(10, 20, 40, 0.95), rgba(10, 20, 40, 0.6)), url("data:image/jpg;base64,{img_b64}");
-        background-size: cover;
-        background-position: center;
-    """
-else:
-    bg_style = "background: linear-gradient(120deg, #1c1e26, #2a2d3a);"
-st.markdown(f"""
-<div class="hero-container" style='{bg_style}'>
-    <div style="max-width: 750px; padding-left: 10px;">
-        <h3 style="color: #00C9FF; margin: 0; padding: 0; letter-spacing: 3px; font-size: 14px; text-transform: uppercase;">Hello, I am a</h3>
-        <h1 class="hero-title">Data Scientist</h1>
-        <p class="hero-desc" style="font-size: 1.3rem; line-height: 1.6; color: #E0E0E0; font-weight: 300;">
-            I build <b>intelligent systems</b> that learn from data. Specializing in 
-            <span style="color: #00C9FF; font-weight: 600;">Generative AI</span> and <span style="color: #92FE9D; font-weight: 600;">Deep Learning</span> 
-            to help organizations predict the future.
-        </p>
-        <br>
-        <div class="hero-buttons">
-            <a href="https://github.com/aswin" target="_blank" style="background: linear-gradient(90deg, #00C9FF, #92FE9D); color: #000; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 5px 15px rgba(0, 201, 255, 0.4); transition: transform 0.3s;">
-                View Projects
-            </a>
-            <a href="https://www.linkedin.com/in/aswin" target="_blank" style="background-color: #0077b5; color: white; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4); transition: transform 0.3s;">
-                LinkdIn
-            </a>
+        # Fallback if image is missing
+        st.warning("⚠️ Add 'profile.jpg' to folder")
+        st.markdown("""
+        <div style="background-color:#e0e0e0; height:300px; border-radius:15px; display:flex; align-items:center; justify-content:center;">
+            <span style="color:#7f8c8d; font-size:20px;">Profile Image Placeholder</span>
         </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+# --- 4. STATS BAR (Clean Style) ---
+st.markdown("---")
+s1, s2, s3, s4 = st.columns(4)
+s1.metric("Experience", "1.8+ Years")
+s2.metric("Projects", "12+ Completed")
+s3.metric("Models Deployed", "5")
+s4.metric("Client Satisfaction", "100%")
+st.markdown("---")
+# --- 5. "TRY MY AI TOOLS" SECTION (The Square Boxes) ---
+st.markdown("## 🛠️ Try My AI Tools")
+st.markdown("Explore the interactive demos below.")
 st.markdown("<br>", unsafe_allow_html=True)
-# --- 5. JAVASCRIPT ANIMATED STATS ---
-components.html("""
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: transparent; }
-    .stats-box {
-        display: flex;
-        justify-content: space-around;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        padding: 20px;
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        color: white;
-        flex-wrap: wrap; /* Allows wrapping on very small screens */
-    }
-    .stat { text-align: center; margin: 5px; }
-    .number { 
-        font-size: 2.5rem; 
-        font-weight: 700; 
-        background: linear-gradient(90deg, #00C9FF, #92FE9D); 
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-        display: block; 
-    }
-    .label { font-size: 0.8rem; color: #aaa; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-    @media only screen and (max-width: 600px) {
-        .number { font-size: 1.8rem; }
-        .label { font-size: 0.7rem; }
-    }
-</style>
-</head>
-<body>
-<div class="stats-box" id="statsSection">
-    <div class="stat"><span class="number" data-target="2.3">0</span><div class="label">Years Exp</div></div>
-    <div class="stat"><span class="number" data-target="12">0</span><div class="label">Projects</div></div>
-    <div class="stat"><span class="number" data-target="5">0</span><div class="label">Deployments</div></div>
-    <div class="stat"><span class="number" data-target="100">0</span><div class="label">Satisfaction %</div></div>
-</div>
-<script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = document.querySelectorAll('.number');
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 1500; 
-                    const increment = target / (duration / 16); 
-                    let current = 0;
-                    const updateCount = () => {
-                        current += increment;
-                        if (current < target) {
-                            if (target % 1 !== 0) counter.innerText = current.toFixed(1) + "+";
-                            else counter.innerText = Math.ceil(current) + "+";
-                            if(target === 100) counter.innerText = Math.ceil(current) + "%";
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            if (target === 100) counter.innerText = target + "%";
-                            else if (target % 1 !== 0) counter.innerText = target + "+";
-                            else counter.innerText = target + "+";
-                        }
-                    };
-                    updateCount();
-                });
-                observer.disconnect();
-            }
-        });
-    });
-    const target = document.querySelector('#statsSection');
-    observer.observe(target);
-</script>
-</body>
-</html>
-""", height=160)
-st.markdown("<br>", unsafe_allow_html=True)
-# --- 6. ABOUT ME ---
-st.subheader("👨‍💻 About Me")
-st.markdown("""
-<div class="about-box">
-    <p style="font-size: 1.15rem; line-height: 1.8; color: #E0E0E0; margin: 0; font-weight: 300;">
-        I am a <b>Data Scientist and AI Python Trainer</b> with a strong technical foundation built on a 
-        <b>Diploma in Electronics</b>. Originally from Kannur and now based in Cochin, I specialize in transforming 
-        complex data into actionable insights while mentoring the next generation of <b>AI developers</b>.
-        <br><br>
-        My background allows me to approach <b>Machine Learning and Computer Vision</b> with a unique engineering 
-        perspective, ensuring that the <b>Python solutions</b> I build and teach are both logically sound and highly efficient.
-    </p>
-</div>
-""", unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
-# --- 7. TOOL GRID (UPDATED FILENAMES) ---
-st.subheader("🚀 Try My AI Tools")
-# UPDATED: These labels now exactly match your file names with spaces
+# List of Tools
 tools = [
-    {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
-    {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
-    {"label": "PDF Splitter", "icon": "📄", "file": "pages/PDF Splitter.py"},
-    {"label": "Object Eraser", "icon": "🧼", "file": "pages/Object Eraser.py"},
-    {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie Link Finder.py"},
-    {"label": "Image Compressor", "icon": "📉", "file": "pages/Image Compressor.py"},
+    {"name": "Background Remover", "icon": "📷", "desc": "Remove image backgrounds instantly using AI."},
+    {"name": "AI Photo Studio", "icon": "✨", "desc": "Upscale and enhance your photos."},
+    {"name": "PDF Splitter", "icon": "📄", "desc": "Extract pages from PDF documents securely."},
+    {"name": "Object Eraser", "icon": "🧼", "desc": "Remove unwanted objects from images."},
+    {"name": "Movie Link Finder", "icon": "🎬", "desc": "Find streaming links for your favorite movies."},
+    {"name": "Image Compressor", "icon": "📉", "desc": "Reduce image size without losing quality."}
 ]
-cols = st.columns(3)
-for i, tool in enumerate(tools):
-    with cols[i % 3]:
-        btn_label = f"{tool['icon']}\n{tool['label']}"
-        if st.button(btn_label, use_container_width=True, key=tool['label']):
-            # This will now switch to the correct file name
-            try:
-                st.switch_page(tool['file'])
-            except Exception as e:
-                st.error(f"⚠️ Error: {e}")
-                st.info(f"Make sure '{tool['file']}' exists in your folder!")
-        st.write("")
+# Create Grid (3 columns per row)
+rows = [tools[i:i + 3] for i in range(0, len(tools), 3)]
+for row in rows:
+    cols = st.columns(3)
+    for i, tool in enumerate(row):
+        with cols[i]:
+            # This container simulates the card look
+            with st.container(border=True):
+                st.markdown(f"### {tool['icon']} {tool['name']}")
+                st.write(tool['desc'])
+                # NAVIGATION LOGIC
+                # If the file actually exists, we link to it. 
+                # If not, we show a 'Coming Soon' toast.
+                if st.button(f"Launch {tool['name']}", key=tool['name']):
+                    # Check if 'pages/Background_Remover.py' exists (example logic)
+                    filename = tool['name'].replace(" ", "_") + ".py"
+                    page_path = f"pages/{filename}"
+                    if tool['name'] == "Background Remover":
+                        # We know this one exists from previous steps
+                        st.switch_page("pages/Background_Remover.py")
+                    else:
+                        st.toast(f"🚀 {tool['name']} is under construction!", icon="🚧")
+    st.markdown("<br>", unsafe_allow_html=True)
+
