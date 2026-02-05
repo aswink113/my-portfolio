@@ -168,9 +168,7 @@ st.markdown(f"""
 <div class="hero-container" style='{bg_style}'>
     <div style="max-width: 750px; padding-left: 10px;">
         <h3 style="color: #00C9FF; margin: 0; padding: 0; letter-spacing: 3px; font-size: 14px; text-transform: uppercase;">Hello, I am a</h3>
-        
         <h1 class="hero-title">Data Scientist</h1>
-        
         <p class="hero-desc" style="font-size: 1.3rem; line-height: 1.6; color: #E0E0E0; font-weight: 300;">
             I build <b>intelligent systems</b> that learn from data. Specializing in 
             <span style="color: #00C9FF; font-weight: 600;">Generative AI</span> and <span style="color: #92FE9D; font-weight: 600;">Deep Learning</span> 
@@ -282,7 +280,6 @@ st.markdown("""
     </p>
 </div>
 """, unsafe_allow_html=True)
-
 st.markdown("<br><br>", unsafe_allow_html=True)
 # --- 7. TOOL GRID ---
 st.subheader("🚀 Try My AI Tools")
