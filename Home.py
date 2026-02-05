@@ -283,7 +283,6 @@ st.markdown("""
 st.markdown("<br><br>", unsafe_allow_html=True)
 # --- 7. TOOL GRID ---
 st.subheader("🚀 Try My AI Tools")
-
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background_Remover.py"},
     {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
@@ -292,9 +291,7 @@ tools = [
     {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie_Link_Finder.py"},
     {"label": "Image Compressor", "icon": "📉", "file": "pages/Image_Compressor.py"},
 ]
-
 cols = st.columns(3)
-
 for i, tool in enumerate(tools):
     with cols[i % 3]:
         btn_label = f"{tool['icon']}\n{tool['label']}"
