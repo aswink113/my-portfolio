@@ -1,6 +1,4 @@
 import streamlit as st
-import sys
-import os
 from PIL import Image
 import io
 from rembg import remove
@@ -49,3 +47,4 @@ with col2:
                     st.error(f"⚠️ Error: {e}")
     else:
         st.write("Results will appear here...")
+
