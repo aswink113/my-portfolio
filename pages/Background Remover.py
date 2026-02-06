@@ -7,14 +7,6 @@ from rembg import remove
 # --- 1. CONFIG MUST BE FIRST ---
 st.set_page_config(page_title="Background Remover", layout="wide")
 # --- 2. SETUP PATH & IMPORT UTILS ---
-# This ensures we can find utils.py from the pages folder
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-try:
-    import utils
-    utils.add_bg_and_footer()
-except Exception as e:
-    # If utils fails, we just ignore it so the app doesn't crash
-    pass
 # --- 3. MAIN APP CONTENT ---
 st.title("📷 Background Remover")
 st.markdown("### Upload an image, and AI will magically remove the background.")
