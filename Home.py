@@ -2,6 +2,7 @@ import streamlit as st
 import base64
 import os
 import streamlit.components.v1 as components
+from PIL import Image
 # --------------------------------------------------
 # 1. PAGE CONFIG
 # --------------------------------------------------
