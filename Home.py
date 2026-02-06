@@ -249,13 +249,18 @@ tools = [
 ]
 cols = st.columns(3)
 for i, tool in enumerate(tools):
-    with cols[i % 3]:
-        btn_label = f"{tool['icon']}\n{tool['label']}"
-        if st.button(btn_label, use_container_width=True, key=tool['label']):
-            # This will now switch to the correct file name
-            try:
-                st.switch_page(tool['file'])
-            except Exception as e:
-                st.error(f"⚠️ Error: {e}")
-                st.info(f"Make sure '{tool['file']}' exists in your folder!")
-        st.write("")
+    with cols[i % 3]:
+        btn_label = f"{tool['icon']}\n{tool['label']}"
+        if st.button(
+            btn_label,
+            use_container_width=True,
+            key=tool["label"]
+        ):
+            try:
+                st.switch_page(tool["file"])
+            except Exception as e:
+                st.error(f"⚠️ Error: {e}")
+                st.info(
+                    f"Make sure `{tool['file']}` exists inside the `pages/` folder."
+                )
+        st.write("")
