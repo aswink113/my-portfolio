@@ -19,9 +19,11 @@ st.markdown("""
         color: white;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    /* 2. REMOVE HEADER AND FOOTER (CLEAN MODE) */
+    /* 2. REMOVE HEADER, FOOTER & SIDEBAR (CLEAN MODE) */
     [data-testid="stHeader"] {display: none;} /* Hides top bar */
     [data-testid="stToolbar"] {display: none;} /* Hides options menu */
+    [data-testid="stSidebar"] {display: none !important;} /* Strictly Hides Sidebar */
+    section[data-testid="stSidebar"] {display: none;}
     footer {visibility: hidden;} /* Hides footer */
     div[class^="viewerBadge"] {display: none;} /* Hides 'Hosted with Streamlit' */
     /* 3. HEADER TEXT STYLING */
@@ -34,7 +36,7 @@ st.markdown("""
         letter-spacing: 1px;
         text-align: center;
         width: 100%;
-        margin-top: 20px; /* Added spacing for mobile top */
+        margin-top: 10px; 
     }
     /* 4. HERO SECTION - DESKTOP DEFAULT */
     .hero-container {
@@ -46,7 +48,7 @@ st.markdown("""
         padding: 8rem 2rem; 
         position: relative;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 20px;
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
     .hero-title {
@@ -61,38 +63,14 @@ st.markdown("""
         display: flex; 
         gap: 20px;
     }
-    /* 5. MOBILE RESPONSIVE FIXES (MAGIC HAPPENS HERE) */
+    /* 5. MOBILE RESPONSIVE FIXES */
     @media only screen and (max-width: 600px) {
-        /* Reduce padding so it fits on screen */
-        .hero-container {
-            padding: 3rem 1.5rem;
-            border-radius: 15px;
-        }
-        /* Make title smaller to prevent wrapping/crowding */
-        .hero-title {
-            font-size: 2.5rem !important;
-            line-height: 1.2;
-        }
-        /* Adjust paragraph text size */
-        .hero-desc {
-            font-size: 1rem !important;
-        }
-        /* Stack buttons vertically on small screens */
-        .hero-buttons {
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-        /* Make buttons full width on mobile */
-        .hero-buttons a {
-            width: 100%;
-            text-align: center;
-            display: block;
-        }
-        /* Adjust header text size */
-        .header-text {
-            font-size: 22px;
-        }
+        .hero-container { padding: 3rem 1.5rem; border-radius: 15px; }
+        .hero-title { font-size: 2.5rem !important; line-height: 1.2; }
+        .hero-desc { font-size: 1rem !important; }
+        .hero-buttons { flex-direction: column; gap: 15px; width: 100%; }
+        .hero-buttons a { width: 100%; text-align: center; display: block; }
+        .header-text { font-size: 22px; }
     }
     /* 6. GLASS TOOL BOXES */
     div.stButton > button {
@@ -135,12 +113,17 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-# --- 3. HEADER SECTION (CENTERED NAME) ---
+# --- 3. HEADER SECTION (HOME - NAME - CONTACT) ---
 c1, c2, c3 = st.columns([1, 2, 1]) 
+with c1:
+    # HOME BUTTON (Left Corner)
+    if st.button("Home", use_container_width=True):
+        st.switch_page("Home.py")
 with c2: 
+    # NAME (Center)
     st.markdown('<div class="header-text">ASWIN K</div>', unsafe_allow_html=True)
 with c3: 
-    # Contact button acts as a floater on desktop, centered on mobile via columns
+    # CONTACT BUTTON (Right Corner)
     st.link_button("📧 Contact Me", "mailto:contact@aswin.ai", use_container_width=True)
 st.write("") 
 # --- 4. HERO SECTION (With profile.jpg as BG) ---
@@ -156,7 +139,6 @@ if os.path.exists("profile.jpg"):
     img_b64 = get_img_as_base64("profile.jpg")
 bg_style = ""
 if img_b64:
-    # Adjusted gradient to be stronger on mobile (darker) to ensure text readability
     bg_style = f"""
         background: linear-gradient(to right, rgba(10, 20, 40, 0.95), rgba(10, 20, 40, 0.6)), url("data:image/jpg;base64,{img_b64}");
         background-size: cover;
@@ -205,7 +187,7 @@ components.html("""
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         color: white;
-        flex-wrap: wrap; /* Allows wrapping on very small screens */
+        flex-wrap: wrap;
     }
     .stat { text-align: center; margin: 5px; }
     .number { 
@@ -281,9 +263,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 st.markdown("<br><br>", unsafe_allow_html=True)
-# --- 7. TOOL GRID (UPDATED FILENAMES) ---
+# --- 7. TOOL GRID ---
 st.subheader("🚀 Try My AI Tools")
-# UPDATED: These labels now exactly match your file names with spaces
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
     {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
@@ -297,7 +278,6 @@ for i, tool in enumerate(tools):
     with cols[i % 3]:
         btn_label = f"{tool['icon']}\n{tool['label']}"
         if st.button(btn_label, use_container_width=True, key=tool['label']):
-            # This will now switch to the correct file name
             try:
                 st.switch_page(tool['file'])
             except Exception as e:
