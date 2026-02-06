@@ -1,7 +1,5 @@
 import streamlit as st
 import urllib.parse
-import sys
-import os
 # Apply Style
 utils.add_bg_and_footer()
 # --- APP CONTENT ---
@@ -53,3 +51,4 @@ if movie_name:
     # Backup Copy Box (Just in case the auto-fill fails)
     with st.expander("Show Manual Copy Option (If above fails)"):
         st.code(full_query, language=None)
+
