@@ -11,20 +11,19 @@ st.set_page_config(
 # --- 2. CSS STYLING ---
 st.markdown("""
     <style>
-    /* 1. GLOBAL FONTS & BACKGROUND */
+    /* GLOBAL FONTS & BACKGROUND */
     .stApp {
         background: radial-gradient(circle at 10% 20%, rgb(10, 20, 40) 0%, rgb(5, 10, 20) 90%);
         background-attachment: fixed;
         color: white;
-    }   
-    /* 2. STRICTLY HIDE SIDEBAR & HEADER ELEMENTS */
+    } 
+    /* HIDE SIDEBAR & HEADER ELEMENTS */
     [data-testid="stSidebar"] {display: none !important;}
     [data-testid="collapsedControl"] {display: none !important;}
-    section[data-testid="stSidebar"] {display: none;}
     [data-testid="stHeader"] {display: none;}
     [data-testid="stToolbar"] {display: none;}
-    footer {visibility: hidden;} 
-    /* 3. HEADER TEXT STYLING */
+    footer {visibility: hidden;}
+    /* HEADER TEXT STYLING */
     .header-text {
         font-family: sans-serif;
         font-size: 24px;
@@ -35,8 +34,7 @@ st.markdown("""
         text-align: center;
         margin-top: 10px;
     }
-    /* 4. TOOL GRID BUTTONS (The Big Squares) */
-    /* This targets ONLY standard buttons, not links */
+    /* TOOL GRID BUTTONS */
     div.stButton > button {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -59,7 +57,7 @@ st.markdown("""
         font-size: 1.2rem;
         font-weight: 600;
     }
-    /* 5. HERO SECTION */
+    /* HERO SECTION */
     .hero-container {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -69,16 +67,15 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-# --- 3. THE HEADER (Home - Name - Contact) ---
+# --- 3. THE HEADER ---
 c1, c2, c3 = st.columns([1, 2, 1])
 with c1:
-    # UPDATED: Use st.page_link so it stays SMALL
     st.page_link("Home.py", label="🏠 Home", use_container_width=True)
 with c2:
     st.markdown('<div class="header-text">ASWIN K</div>', unsafe_allow_html=True)
 with c3:
     st.link_button("📧 Contact Me", "mailto:contact@aswin.ai", use_container_width=True)
-st.write("") # Spacer
+st.write("") 
 # --- 4. HERO SECTION ---
 def get_img_as_base64(file):
     try:
@@ -113,17 +110,14 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
-# --- 5. JAVASCRIPT ANIMATED STATS ---
+# --- 5. STATS ---
 components.html("""
 <!DOCTYPE html>
 <html>
 <head>
 <style>
     body { margin: 0; font-family: sans-serif; background: transparent; }
-    .stats-box {
-        display: flex; justify-content: space-around;
-        color: white; flex-wrap: wrap;
-    }
+    .stats-box { display: flex; justify-content: space-around; color: white; flex-wrap: wrap; }
     .stat { text-align: center; margin: 10px; }
     .number { 
         font-size: 2.5rem; font-weight: 700; 
@@ -157,23 +151,23 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
-# --- 7. TOOLS GRID ---
+# --- 7. TOOLS GRID (NOW USING UNDERSCORES) ---
 st.subheader("🚀 Try My AI Tools")
-# CRITICAL FIX: These file names now match your screenshot EXACTLY
+
+# UPDATED: File names now match the underscores you will set in Step 1
 tools = [
-    {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
+    {"label": "Background Remover", "icon": "📷", "file": "pages/Background_Remover.py"},
     {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
-    {"label": "PDF Splitter", "icon": "📄", "file": "pages/PDF Splitter.py"},
-    {"label": "Object Eraser", "icon": "🧼", "file": "pages/Object Eraser.py"},
-    {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie Link Finder.py"},
-    {"label": "Image Compressor", "icon": "📉", "file": "pages/Image Compressor.py"},
+    {"label": "PDF Splitter", "icon": "📄", "file": "pages/PDF_Splitter.py"},
+    {"label": "Object Eraser", "icon": "🧼", "file": "pages/Object_Eraser.py"},
+    {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie_Link_Finder.py"},
+    {"label": "Image Compressor", "icon": "📉", "file": "pages/Image_Compressor.py"},
 ]
 cols = st.columns(3)
 for i, tool in enumerate(tools):
     with cols[i % 3]:
-        # Using button here keeps the "Square Card" look
         if st.button(f"{tool['icon']}\n{tool['label']}", use_container_width=True, key=tool['label']):
             try:
                 st.switch_page(tool['file'])
             except:
-                st.error("Page not found! Check filenames in 'pages' folder.")
+                st.error(f"Page not found! I looked for '{tool['file']}'. Please check your 'pages' folder.")
