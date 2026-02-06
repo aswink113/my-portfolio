@@ -141,7 +141,7 @@ st.markdown(f"""
                 View Projects
             </a>
             <a href="https://www.linkedin.com/in/aswin-k113" target="_blank" style="background-color: #0077b5; color: white; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4); transition: transform 0.3s;">
-                LinkdIn
+                LinkedIn
             </a>
         </div>
     </div>
