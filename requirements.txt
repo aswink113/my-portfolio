@@ -3,3 +3,4 @@ Pillow
 rembg
 pypdf
 PyPDF2
+cv2
