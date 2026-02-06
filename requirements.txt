@@ -1,6 +1,6 @@
 streamlit
+pypdf
+streamlit
 Pillow
 rembg
-pypdf
 PyPDF2
-cv2
