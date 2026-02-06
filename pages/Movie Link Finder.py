@@ -2,9 +2,6 @@ import streamlit as st
 import urllib.parse
 import sys
 import os
-# --- PATH SETUP ---
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import utils 
 # Apply Style
 utils.add_bg_and_footer()
 # --- APP CONTENT ---
