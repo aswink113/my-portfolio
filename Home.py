@@ -90,7 +90,7 @@ st.markdown("""
         justify-content: center;
     }
     div.stButton > button:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(150, 255, 150, 0.4) !important;
         border-color: #00ADB5 !important;
         transform: translateY(-8px) scale(1.02);
         box-shadow: 0 15px 30px rgba(0, 173, 181, 0.25);
