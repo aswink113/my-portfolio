@@ -3,8 +3,6 @@ import numpy as np
 import cv2
 from PIL import Image, ImageEnhance
 import io
-import os
-import sys
 import requests
 from streamlit_drawable_canvas import st_canvas
 st.title("✨ AI Photo Studio")
@@ -119,3 +117,4 @@ with tab2:
                     st.download_button("📥 Download HD Image", buf2.getvalue(), "enhanced.png", "image/png")
                 except Exception as e:
                     st.error(f"Error: {e}. (Make sure opencv-contrib-python is not conflicting)")
+
