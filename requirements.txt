@@ -1,6 +1,8 @@
 streamlit
-pypdf
-streamlit
 Pillow
 rembg
 PyPDF2
+opencv-python-headless
+numpy
+requests
+pypdf
