@@ -249,11 +249,13 @@ tools = [
 ]
 cols = st.columns(3)
 for i, tool in enumerate(tools):
-    with cols[i % 3]:
-        btn_label = f"{tool['icon']}\n{tool['label']}"
-        if st.button(btn_label, use_container_width=True, key=tool['label']):
-            if "Background" in tool['label']:
-                st.switch_page("pages/Background_Remover.py")
-            else:
-                st.toast(f"🚧 {tool['label'].splitlines()[0]} is coming soon!", icon="🔧")
-        st.write("")
+    with cols[i % 3]:
+        btn_label = f"{tool['icon']}\n{tool['label']}"
+        if st.button(btn_label, use_container_width=True, key=tool['label']):
+            # This will now switch to the correct file name
+            try:
+                st.switch_page(tool['file'])
+            except Exception as e:
+                st.error(f"⚠️ Error: {e}")
+                st.info(f"Make sure '{tool['file']}' exists in your folder!")
+        st.write("")    i need home butten on the left corner of header like contact me button and remove the side bar
