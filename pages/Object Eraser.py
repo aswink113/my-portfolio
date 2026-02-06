@@ -1,6 +1,4 @@
 import streamlit as st
-import sys
-import os
 st.title("🔮 Future Tools")
 st.write("These advanced AI tools are currently under development!")
 # List of future features
@@ -20,3 +18,4 @@ email = st.text_input("Enter your email")
 if st.button("Subscribe"):
     if email:
         st.success("You are on the list!")
+
