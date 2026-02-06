@@ -48,7 +48,6 @@ footer { display: none !important; }
     text-align: center;
 }
 </style>
-
 <script>
 /* FORCE REMOVE SIDEBAR AFTER RERUN */
 const sidebar = parent.document.querySelector('section[data-testid="stSidebar"]');
