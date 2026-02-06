@@ -151,22 +151,32 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
-# --- 7. TOOLS GRID (NOW USING UNDERSCORES) ---
+# ... (Keep all your CSS and Header code the same) ...
+
+# --- 7. TOOLS GRID (Page Name Method) ---
 st.subheader("🚀 Try My AI Tools")
-# UPDATED: File names now use underscores to match your GitHub renaming
+
+# UPDATED: We removed "pages/" and ".py". Streamlit sometimes prefers just the name.
 tools = [
-    {"label": "Background Remover", "icon": "📷", "file": "pages/Background_Remover.py"},
-    {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
-    {"label": "PDF Splitter", "icon": "📄", "file": "pages/PDF_Splitter.py"},
-    {"label": "Object Eraser", "icon": "🧼", "file": "pages/Object_Eraser.py"},
-    {"label": "Movie Link Finder", "icon": "🎬", "file": "pages/Movie_Link_Finder.py"},
-    {"label": "Image Compressor", "icon": "📉", "file": "pages/Image_Compressor.py"},
+    {"label": "Background Remover", "icon": "📷", "page": "Background_Remover"},
+    {"label": "AI Photo Studio", "icon": "✨", "page": "AI_Photo_Studio"},
+    {"label": "PDF Splitter", "icon": "📄", "page": "PDF_Splitter"},
+    {"label": "Object Eraser", "icon": "🧼", "page": "Object_Eraser"},
+    {"label": "Movie Link Finder", "icon": "🎬", "page": "Movie_Link_Finder"},
+    {"label": "Image Compressor", "icon": "📉", "page": "Image_Compressor"},
 ]
+
 cols = st.columns(3)
+
 for i, tool in enumerate(tools):
     with cols[i % 3]:
         if st.button(f"{tool['icon']}\n{tool['label']}", use_container_width=True, key=tool['label']):
             try:
-                st.switch_page(tool['file'])
+                # Try switching by the simple page name
+                st.switch_page(f"pages/{tool['page']}.py")
             except:
-                st.error(f"Page not found! I looked for '{tool['file']}'. Please check your 'pages' folder.")
+                try:
+                    # Backup: Try switching without the folder path
+                    st.switch_page(f"{tool['page']}")
+                except:
+                    st.error(f"Still can't find {tool['page']}. Did you Reboot?")
