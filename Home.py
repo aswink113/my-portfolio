@@ -258,4 +258,4 @@ for i, tool in enumerate(tools):
             except Exception as e:
                 st.error(f"⚠️ Error: {e}")
                 st.info(f"Make sure '{tool['file']}' exists in your folder!")
-        st.write("")    i need home butten on the left corner of header like contact me button and remove the side bar
+        st.write("")
