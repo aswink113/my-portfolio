@@ -153,7 +153,6 @@ st.markdown("""
 st.markdown("<br>", unsafe_allow_html=True)
 # --- 7. TOOLS GRID (NOW USING UNDERSCORES) ---
 st.subheader("🚀 Try My AI Tools")
-
 # UPDATED: File names now match the underscores you will set in Step 1
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background_Remover.py"},
