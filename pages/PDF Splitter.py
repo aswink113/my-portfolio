@@ -1,6 +1,4 @@
 import streamlit as st
-import sys
-import os
 # ... The rest of your existing code ...import streamlit as st
 from PyPDF2 import PdfReader, PdfWriter
 import io
@@ -30,3 +28,4 @@ if uploaded_pdf is not None:
                 )
             except Exception as e:
                 st.error(f"Error: {e}. Check your page numbers.")
+
