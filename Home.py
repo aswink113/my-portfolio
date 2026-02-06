@@ -2,7 +2,6 @@ import streamlit as st
 import base64
 import os
 import streamlit.components.v1 as components
-from PIL import Image
 # --- 1. PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="ASWIN K | AI Portfolio",
@@ -17,14 +16,14 @@ st.markdown("""
         background: radial-gradient(circle at 10% 20%, rgb(10, 20, 40) 0%, rgb(5, 10, 20) 90%);
         background-attachment: fixed;
         color: white;
-    }
+    }   
     /* 2. STRICTLY HIDE SIDEBAR & HEADER ELEMENTS */
-    [data-testid="stSidebar"] {display: none !important;} /* Hides Sidebar */
-    [data-testid="collapsedControl"] {display: none !important;} /* Hides the '>' arrow */
+    [data-testid="stSidebar"] {display: none !important;}
+    [data-testid="collapsedControl"] {display: none !important;}
     section[data-testid="stSidebar"] {display: none;}
     [data-testid="stHeader"] {display: none;}
     [data-testid="stToolbar"] {display: none;}
-    footer {visibility: hidden;}
+    footer {visibility: hidden;} 
     /* 3. HEADER TEXT STYLING */
     .header-text {
         font-family: sans-serif;
@@ -73,8 +72,7 @@ st.markdown("""
 # --- 3. THE HEADER (Home - Name - Contact) ---
 c1, c2, c3 = st.columns([1, 2, 1])
 with c1:
-    # UPDATED: Use st.page_link (Available in Streamlit 1.30+)
-    # This prevents the button from looking huge
+    # UPDATED: Use st.page_link so it stays SMALL
     st.page_link("Home.py", label="🏠 Home", use_container_width=True)
 with c2:
     st.markdown('<div class="header-text">ASWIN K</div>', unsafe_allow_html=True)
@@ -161,7 +159,7 @@ st.markdown("""
 st.markdown("<br>", unsafe_allow_html=True)
 # --- 7. TOOLS GRID ---
 st.subheader("🚀 Try My AI Tools")
-# Note: These file names must match your 'pages' folder exactly (Case Sensitive)
+# CRITICAL FIX: These file names now match your screenshot EXACTLY
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
     {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
