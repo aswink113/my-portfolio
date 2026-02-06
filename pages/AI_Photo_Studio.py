@@ -7,13 +7,6 @@ import os
 import sys
 import requests
 from streamlit_drawable_canvas import st_canvas
-# --- PATH SETUP & UTILS ---
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-# Apply Glass Theme
-try:
-    utils.add_bg_and_footer()
-except:
-    pass
 st.title("✨ AI Photo Studio")
 st.markdown("Use Deep Learning to **upscale quality** or **remove watermarks**.")
 # --- HELPER: DOWNLOAD AI MODEL (EDSR) ---
