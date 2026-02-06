@@ -11,19 +11,31 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 # --------------------------------------------------
-# GLOBAL CSS (HIDE SIDEBAR + CUSTOM HEADER)
+# CACHE REMBG (CRITICAL FIX)
+# --------------------------------------------------
+@st.cache_resource
+def load_rembg():
+    return remove
+# --------------------------------------------------
+# GLOBAL CSS + JS (KILL SIDEBAR PERMANENTLY)
 # --------------------------------------------------
 st.markdown("""
 <style>
-/* REMOVE SIDEBAR COMPLETELY */
-[data-testid="stSidebar"] {display: none !important;}
-[data-testid="collapsedControl"] {display: none !important;}
-/* REMOVE STREAMLIT HEADER */
-[data-testid="stHeader"] {display: none;}
-footer {display: none;}
+/* KILL SIDEBAR */
+section[data-testid="stSidebar"] { display: none !important; }
+div[data-testid="collapsedControl"] { display: none !important; }
+div[data-testid="stSidebarNav"] { display: none !important; }
+/* REMOVE STREAMLIT HEADER & FOOTER */
+header[data-testid="stHeader"] { display: none !important; }
+footer { display: none !important; }
+/* FULL WIDTH */
+.block-container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
 /* APP BACKGROUND */
 .stApp {
-    background: radial-gradient(circle at 10% 20%, rgb(10, 20, 40) 0%, rgb(5, 10, 20) 90%);
+    background: radial-gradient(circle at 10% 20%, rgb(10,20,40), rgb(5,10,20));
     color: white;
 }
 /* CUSTOM HEADER */
@@ -36,6 +48,12 @@ footer {display: none;}
     text-align: center;
 }
 </style>
+
+<script>
+/* FORCE REMOVE SIDEBAR AFTER RERUN */
+const sidebar = parent.document.querySelector('section[data-testid="stSidebar"]');
+if (sidebar) sidebar.remove();
+</script>
 """, unsafe_allow_html=True)
 # --------------------------------------------------
 # CUSTOM HEADER BAR
@@ -68,20 +86,27 @@ with col1:
 with col2:
     if uploaded_file:
         st.info("👇 **Step 2: Magic Time!**")
-        if st.button("✨ Remove Background Now", type="primary"):
+        run = st.button("✨ Remove Background Now", type="primary")
+        if run:
             with st.spinner("🤖 AI is processing..."):
                 try:
+                    # Load cached rembg
+                    rembg = load_rembg()
                     # Convert image to bytes
                     buf = io.BytesIO()
                     image.save(buf, format="PNG")
                     byte_im = buf.getvalue()
                     # Remove background
-                    output = remove(byte_im)
-                    # Convert result back to image
+                    output = rembg(byte_im)
+                    # Convert output to image
                     result_buf = io.BytesIO(output)
                     img_out = Image.open(result_buf)
                     st.success("✅ Done!")
-                    st.image(img_out, caption="Background Removed", use_container_width=True)
+                    st.image(
+                        img_out,
+                        caption="Background Removed",
+                        use_container_width=True
+                    )
                     st.download_button(
                         label="📥 Download Transparent Image",
                         data=result_buf.getvalue(),
