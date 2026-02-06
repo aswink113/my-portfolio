@@ -9,124 +9,79 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-# --- 2. IOS GLASSMORPHISM CSS (WITH MOBILE FIXES) ---
+# --- 2. CSS STYLING ---
 st.markdown("""
     <style>
-    /* 1. BACKGROUND & GLOBAL FONTS */
+    /* 1. GLOBAL FONTS & BACKGROUND */
     .stApp {
         background: radial-gradient(circle at 10% 20%, rgb(10, 20, 40) 0%, rgb(5, 10, 20) 90%);
         background-attachment: fixed;
         color: white;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    /* 2. REMOVE HEADER, FOOTER & SIDEBAR (CLEAN MODE) */
-    [data-testid="stHeader"] {display: none;} /* Hides top bar */
-    [data-testid="stToolbar"] {display: none;} /* Hides options menu */
-    [data-testid="stSidebar"] {display: none !important;} /* Strictly Hides Sidebar */
+    /* 2. STRICTLY HIDE SIDEBAR & HEADER ELEMENTS */
+    [data-testid="stSidebar"] {display: none !important;} /* Hides Sidebar */
+    [data-testid="collapsedControl"] {display: none !important;} /* Hides the '>' arrow */
     section[data-testid="stSidebar"] {display: none;}
-    footer {visibility: hidden;} /* Hides footer */
-    div[class^="viewerBadge"] {display: none;} /* Hides 'Hosted with Streamlit' */
+    [data-testid="stHeader"] {display: none;}
+    [data-testid="stToolbar"] {display: none;}
+    footer {visibility: hidden;}
     /* 3. HEADER TEXT STYLING */
     .header-text {
-        font-size: 28px;
+        font-family: sans-serif;
+        font-size: 24px;
         font-weight: 800;
         background: linear-gradient(90deg, #00C9FF, #92FE9D);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: 1px;
         text-align: center;
-        width: 100%;
-        margin-top: 10px; 
+        margin-top: 10px;
     }
-    /* 4. HERO SECTION - DESKTOP DEFAULT */
-    .hero-container {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 8rem 2rem; 
-        position: relative;
-        overflow: hidden;
-        margin-top: 20px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    }
-    .hero-title {
-        font-size: 4rem; 
-        margin: 5px 0 15px 0; 
-        font-weight: 800; 
-        background: linear-gradient(to right, #ffffff, #a0a0a0); 
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-    }
-    .hero-buttons {
-        display: flex; 
-        gap: 20px;
-    }
-    /* 5. MOBILE RESPONSIVE FIXES */
-    @media only screen and (max-width: 600px) {
-        .hero-container { padding: 3rem 1.5rem; border-radius: 15px; }
-        .hero-title { font-size: 2.5rem !important; line-height: 1.2; }
-        .hero-desc { font-size: 1rem !important; }
-        .hero-buttons { flex-direction: column; gap: 15px; width: 100%; }
-        .hero-buttons a { width: 100%; text-align: center; display: block; }
-        .header-text { font-size: 22px; }
-    }
-    /* 6. GLASS TOOL BOXES */
+    /* 4. TOOL GRID BUTTONS (The Big Squares) */
+    /* This targets ONLY standard buttons, not links */
     div.stButton > button {
-        background: rgba(255, 255, 255, 0.04) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #E0E0E0 !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 20px !important;
-        padding: 0px; 
-        height: 160px; 
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        color: white;
+        height: 140px; 
         width: 100%;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: 0.3s;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
     div.stButton > button:hover {
-        background: rgba(150, 255, 150, 0.4) !important;
-        border-color: #00ADB5 !important;
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0, 173, 181, 0.25);
-        color: #00ADB5 !important;
+        border-color: #00ADB5;
+        transform: translateY(-5px);
+        color: #00ADB5;
     }
     div.stButton > button p {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 600;
-        margin: 0;
-        letter-spacing: 0.5px;
     }
-    /* 7. ABOUT ME SECTION */
-    .about-box {
+    /* 5. HERO SECTION */
+    .hero-container {
         background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 24px;
-        padding: 40px;
-        border-left: 4px solid #00ADB5;
+        padding: 5rem 2rem;
+        margin-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
-# --- 3. HEADER SECTION (HOME - NAME - CONTACT) ---
-c1, c2, c3 = st.columns([1, 2, 1]) 
+# --- 3. THE HEADER (Home - Name - Contact) ---
+c1, c2, c3 = st.columns([1, 2, 1])
 with c1:
-    # HOME BUTTON (Left Corner)
-    if st.button("Home", use_container_width=True):
-        st.switch_page("Home.py")
-with c2: 
-    # NAME (Center)
+    # UPDATED: Use st.page_link (Available in Streamlit 1.30+)
+    # This prevents the button from looking huge
+    st.page_link("Home.py", label="🏠 Home", use_container_width=True)
+with c2:
     st.markdown('<div class="header-text">ASWIN K</div>', unsafe_allow_html=True)
-with c3: 
-    # CONTACT BUTTON (Right Corner)
+with c3:
     st.link_button("📧 Contact Me", "mailto:contact@aswin.ai", use_container_width=True)
-st.write("") 
-# --- 4. HERO SECTION (With profile.jpg as BG) ---
+st.write("") # Spacer
+# --- 4. HERO SECTION ---
 def get_img_as_base64(file):
     try:
         with open(file, "rb") as f:
@@ -139,31 +94,22 @@ if os.path.exists("profile.jpg"):
     img_b64 = get_img_as_base64("profile.jpg")
 bg_style = ""
 if img_b64:
-    bg_style = f"""
-        background: linear-gradient(to right, rgba(10, 20, 40, 0.95), rgba(10, 20, 40, 0.6)), url("data:image/jpg;base64,{img_b64}");
-        background-size: cover;
-        background-position: center;
-    """
+    bg_style = f"""background: linear-gradient(to right, rgba(10, 20, 40, 0.95), rgba(10, 20, 40, 0.5)), url("data:image/jpg;base64,{img_b64}"); background-size: cover; background-position: center;"""
 else:
     bg_style = "background: linear-gradient(120deg, #1c1e26, #2a2d3a);"
 st.markdown(f"""
 <div class="hero-container" style='{bg_style}'>
-    <div style="max-width: 750px; padding-left: 10px;">
-        <h3 style="color: #00C9FF; margin: 0; padding: 0; letter-spacing: 3px; font-size: 14px; text-transform: uppercase;">Hello, I am a</h3>
-        <h1 class="hero-title">Data Scientist</h1>
-        <p class="hero-desc" style="font-size: 1.3rem; line-height: 1.6; color: #E0E0E0; font-weight: 300;">
+    <div style="max-width: 700px;">
+        <h3 style="color: #00C9FF; margin:0;">HELLO, I AM A</h3>
+        <h1 style="font-size: 3.5rem; margin: 10px 0;">Data Scientist</h1>
+        <p style="font-size: 1.2rem; color: #E0E0E0;">
             I build <b>intelligent systems</b> that learn from data. Specializing in 
-            <span style="color: #00C9FF; font-weight: 600;">Generative AI</span> and <span style="color: #92FE9D; font-weight: 600;">Deep Learning</span> 
-            to help organizations predict the future.
+            <b>Generative AI</b> and <b>Deep Learning</b>.
         </p>
         <br>
-        <div class="hero-buttons">
-            <a href="https://github.com/aswin" target="_blank" style="background: linear-gradient(90deg, #00C9FF, #92FE9D); color: #000; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 5px 15px rgba(0, 201, 255, 0.4); transition: transform 0.3s;">
-                View Projects
-            </a>
-            <a href="https://www.linkedin.com/in/aswin" target="_blank" style="background-color: #0077b5; color: white; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4); transition: transform 0.3s;">
-                LinkdIn
-            </a>
+        <div style="display: flex; gap: 15px;">
+             <a href="https://github.com/aswin" target="_blank" style="background: linear-gradient(90deg, #00C9FF, #92FE9D); color: #000; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold;">View Projects</a>
+             <a href="https://www.linkedin.com/in/aswin" target="_blank" style="background-color: #0077b5; color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold;">LinkedIn</a>
         </div>
     </div>
 </div>
@@ -175,96 +121,47 @@ components.html("""
 <html>
 <head>
 <style>
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: transparent; }
+    body { margin: 0; font-family: sans-serif; background: transparent; }
     .stats-box {
-        display: flex;
-        justify-content: space-around;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        padding: 20px;
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        color: white;
-        flex-wrap: wrap;
+        display: flex; justify-content: space-around;
+        color: white; flex-wrap: wrap;
     }
-    .stat { text-align: center; margin: 5px; }
+    .stat { text-align: center; margin: 10px; }
     .number { 
-        font-size: 2.5rem; 
-        font-weight: 700; 
+        font-size: 2.5rem; font-weight: 700; 
         background: linear-gradient(90deg, #00C9FF, #92FE9D); 
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         display: block; 
     }
-    .label { font-size: 0.8rem; color: #aaa; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-    @media only screen and (max-width: 600px) {
-        .number { font-size: 1.8rem; }
-        .label { font-size: 0.7rem; }
-    }
+    .label { font-size: 0.8rem; color: #aaa; margin-top: 5px; text-transform: uppercase; }
 </style>
 </head>
 <body>
-<div class="stats-box" id="statsSection">
-    <div class="stat"><span class="number" data-target="2.3">0</span><div class="label">Years Exp</div></div>
-    <div class="stat"><span class="number" data-target="12">0</span><div class="label">Projects</div></div>
-    <div class="stat"><span class="number" data-target="5">0</span><div class="label">Deployments</div></div>
-    <div class="stat"><span class="number" data-target="100">0</span><div class="label">Satisfaction %</div></div>
+<div class="stats-box">
+    <div class="stat"><span class="number">2.3+</span><div class="label">Years Exp</div></div>
+    <div class="stat"><span class="number">12+</span><div class="label">Projects</div></div>
+    <div class="stat"><span class="number">5+</span><div class="label">Deployments</div></div>
+    <div class="stat"><span class="number">100%</span><div class="label">Satisfaction</div></div>
 </div>
-<script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = document.querySelectorAll('.number');
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 1500; 
-                    const increment = target / (duration / 16); 
-                    let current = 0;
-                    const updateCount = () => {
-                        current += increment;
-                        if (current < target) {
-                            if (target % 1 !== 0) counter.innerText = current.toFixed(1) + "+";
-                            else counter.innerText = Math.ceil(current) + "+";
-                            if(target === 100) counter.innerText = Math.ceil(current) + "%";
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            if (target === 100) counter.innerText = target + "%";
-                            else if (target % 1 !== 0) counter.innerText = target + "+";
-                            else counter.innerText = target + "+";
-                        }
-                    };
-                    updateCount();
-                });
-                observer.disconnect();
-            }
-        });
-    });
-    const target = document.querySelector('#statsSection');
-    observer.observe(target);
-</script>
 </body>
 </html>
-""", height=160)
+""", height=120)
 st.markdown("<br>", unsafe_allow_html=True)
 # --- 6. ABOUT ME ---
 st.subheader("👨‍💻 About Me")
 st.markdown("""
-<div class="about-box">
-    <p style="font-size: 1.15rem; line-height: 1.8; color: #E0E0E0; margin: 0; font-weight: 300;">
+<div style="background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 20px; border-left: 4px solid #00ADB5;">
+    <p style="font-size: 1.15rem; line-height: 1.8; color: #E0E0E0; margin: 0;">
         I am a <b>Data Scientist and AI Python Trainer</b> with a strong technical foundation built on a 
         <b>Diploma in Electronics</b>. Originally from Kannur and now based in Cochin, I specialize in transforming 
         complex data into actionable insights while mentoring the next generation of <b>AI developers</b>.
-        <br><br>
-        My background allows me to approach <b>Machine Learning and Computer Vision</b> with a unique engineering 
-        perspective, ensuring that the <b>Python solutions</b> I build and teach are both logically sound and highly efficient.
     </p>
 </div>
 """, unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
-# --- 7. TOOL GRID ---
+st.markdown("<br>", unsafe_allow_html=True)
+# --- 7. TOOLS GRID ---
 st.subheader("🚀 Try My AI Tools")
+# Note: These file names must match your 'pages' folder exactly (Case Sensitive)
 tools = [
     {"label": "Background Remover", "icon": "📷", "file": "pages/Background Remover.py"},
     {"label": "AI Photo Studio", "icon": "✨", "file": "pages/AI_Photo_Studio.py"},
@@ -276,11 +173,9 @@ tools = [
 cols = st.columns(3)
 for i, tool in enumerate(tools):
     with cols[i % 3]:
-        btn_label = f"{tool['icon']}\n{tool['label']}"
-        if st.button(btn_label, use_container_width=True, key=tool['label']):
+        # Using button here keeps the "Square Card" look
+        if st.button(f"{tool['icon']}\n{tool['label']}", use_container_width=True, key=tool['label']):
             try:
                 st.switch_page(tool['file'])
-            except Exception as e:
-                st.error(f"⚠️ Error: {e}")
-                st.info(f"Make sure '{tool['file']}' exists in your folder!")
-        st.write("")
+            except:
+                st.error("Page not found! Check filenames in 'pages' folder.")
