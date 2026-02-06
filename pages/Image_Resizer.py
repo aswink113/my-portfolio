@@ -1,8 +1,6 @@
 import streamlit as st
 from PIL import Image
 import io
-import sys
-import os
 # 1. Page Config
 st.set_page_config(page_title="Image Resizer", layout="wide")
 # --- MAIN APP LOGIC ---
@@ -58,3 +56,4 @@ if uploaded_file is not None:
             file_name=f"resized_{uploaded_file.name}",
             mime=f"image/{img_format.lower()}"
         )
+
