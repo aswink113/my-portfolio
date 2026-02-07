@@ -132,7 +132,7 @@ st.markdown(f"""
         <h1 style="font-size: 4rem; margin: 5px 0 15px 0; font-weight: 800; background: linear-gradient(to right, #ffffff, #a0a0a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Data Scientist</h1>
         <p style="font-size: 1.3rem; line-height: 1.6; color: #E0E0E0; font-weight: 300;">
             I build <b>intelligent systems</b> that learn from data. Specializing in 
-            <span style="color: #00C9FF; font-weight: 600;">Data Scientist       </span>   </span>       and <span style="color: #92FE9D; font-weight: 600;">Deep Learning</span> 
+            <span style="color: #00C9FF; font-weight: 600;">Data Science       </span>   </span>       and <span style="color: #92FE9D; font-weight: 600;">Machine Learning</span> 
             to help organizations predict the future.
         </p>
         <br>
@@ -181,9 +181,9 @@ components.html("""
 </head>
 <body>
 <div class="stats-box" id="statsSection">
-    <div class="stat"><span class="number" data-target="2.3">0</span><div class="label">Years Exp</div></div>
-    <div class="stat"><span class="number" data-target="12">0</span><div class="label">Projects</div></div>
-    <div class="stat"><span class="number" data-target="5">0</span><div class="label">Deployments</div></div>
+    <div class="stat"><span class="number" data-target="2.4">0</span><div class="label">Years Exp</div></div>
+    <div class="stat"><span class="number" data-target="5">0</span><div class="label">Projects</div></div>
+    <div class="stat"><span class="number" data-target="2">0</span><div class="label">Deployments</div></div>
     <div class="stat"><span class="number" data-target="100">0</span><div class="label">Satisfaction %</div></div>
 </div>
 <script>
