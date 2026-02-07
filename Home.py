@@ -231,7 +231,7 @@ st.markdown("""
         My technical journey began with a <b>Polytechnic Diploma in Electronics</b>, followed by intensive training in 
         <b>Data Science & Machine Learning (DSML)</b>.
         <br><br>
-        Previously, I excelled as a <b>GIS Engineer at Immco</b> (joined Jan 2022), working on <b>major N2P telecom projects</b>. 
+        Previously, I excelled as a <b>Telecom Engineer at Immco</b>, working on <b>major N2P telecom projects</b>. 
         I successfully designed over <b>10,000 home passes</b> and played a key role in optimizing workflows by migrating 
         production processes from MapInfo to QGIS. My experience also includes guiding team members in complex tasks 
         like SJR and Fiber Reposting.
