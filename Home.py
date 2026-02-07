@@ -225,18 +225,19 @@ st.markdown("<br>", unsafe_allow_html=True)
 # --- 6. ABOUT ME ---
 st.subheader("👨‍💻 About Me")
 st.markdown("""
-<div class="about-box">
-    <p style="font-size: 1.15rem; line-height: 1.8; color: #E0E0E0; margin: 0; font-weight: 300;">
-        I am a <b>Data Scientist and AI Python Trainer</b> with a strong technical foundation built on a 
-        <b>Diploma in Electronics</b>. Originally from Kannur and now based in Cochin, I specialize in transforming 
-        complex data into actionable insights while mentoring the next generation of <b>AI developers</b>.
+<div style="background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 20px; border-left: 4px solid #00ADB5;">
+    <p style="font-size: 1.1rem; line-height: 1.6; color: #E0E0E0; margin: 0;">
+        I am a <b>Data Scientist at Skill Park, Kalamassery</b>, bridging the gap between engineering and AI. 
+        My technical journey began with a <b>Polytechnic Diploma in Electronics</b>, followed by intensive training in 
+        <b>Data Science & Machine Learning (DSML)</b>.
         <br><br>
-        My background allows me to approach <b>Machine Learning and Computer Vision</b> with a unique engineering 
-        perspective, ensuring that the <b>Python solutions</b> I build and teach are both logically sound and highly efficient.
+        Previously, I excelled as a <b>GIS Engineer at Immco</b> (joined Jan 2022), working on <b>major N2P telecom projects</b>. 
+        I successfully designed over <b>10,000 home passes</b> and played a key role in optimizing workflows by migrating 
+        production processes from MapInfo to QGIS. My experience also includes guiding team members in complex tasks 
+        like SJR and Fiber Reposting.
     </p>
 </div>
 """, unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
 # --- 7. TOOL GRID ---
 st.subheader("🚀 Try My AI Tools")
 tools = [
