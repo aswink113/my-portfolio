@@ -1,9 +1,0 @@
-streamlit
-Pillow
-rembg
-PyPDF2
-opencv-python-headless
-numpy
-requests
-pypdf
-streamlit-drawable-canvas
